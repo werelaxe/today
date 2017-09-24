@@ -25,7 +25,7 @@ SECRET_KEY = 'wc%&m-@gzwg@5hy7fzl62$xa@a4q#)zh&*reqtq0cy=cdxvcsr'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["0.0.0.0", "192.168.1.5"]
+ALLOWED_HOSTS = ["0.0.0.0", "werelaxe.ru", "192.168.1.3"]
 
 
 # Application definition
