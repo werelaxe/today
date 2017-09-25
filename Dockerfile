@@ -8,6 +8,7 @@ RUN python3 get-pip.py
 RUN pip3 install Django
 RUN pip3 install djangorestframework
 RUN pip3 install requests
+RUN pip3 install marshmallow
 
 RUN mkdir app
 WORKDIR app
