@@ -5,13 +5,27 @@ import requests
 from html.parser import HTMLParser
 from today.cache_wrapper import remember
 
+BASE_URL = "http://kakoysegodnyaprazdnik.ru/baza"
 
-URL = "http://kakoysegodnyaprazdnik.ru/"
+MONTH_LABELS = {
+    1: 'yanvar',
+    2: 'fevral',
+    3: 'mart',
+    4: 'aprel',
+    5: 'may',
+    6: 'iyun',
+    7: 'iyul',
+    8: 'avgust',
+    9: 'sentyabr',
+    10: 'oktyabr',
+    11: 'noyabr',
+    12: 'dekabr',
+}
 
 
 @remember
-def get_today():
-    return choice(get_celebrates()).lower()
+def get_today(date):
+    return choice(get_celebrates(date)).lower()
 
 
 class TodayParser(HTMLParser):
@@ -44,8 +58,17 @@ class TodayParser(HTMLParser):
         return self.collected_data
 
 
-def get_celebrates():
-    content = requests.get(URL).content.decode()
+def make_url(base_url, date):
+    month = MONTH_LABELS[date.month]
+    return "{base_url}/{month}/{day}".format(
+        base_url=base_url,
+        month=month,
+        day=date.day,
+    )
+
+
+def get_celebrates(date):
+    content = requests.get(make_url(BASE_URL, date)).content.decode()
     parser = TodayParser()
     parser.feed(content)
     return parser.today_celebrates

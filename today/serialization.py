@@ -1,11 +1,11 @@
+from datetime import datetime
+
 from marshmallow import Schema, fields
 from marshmallow import post_load
 
 
 class TodayQuerySchema(Schema):
-    usual = fields.Boolean()
-    raw = fields.Boolean()
-    congrat = fields.Boolean()
+    date = fields.Date()
 
     @post_load
     def make_query(self, data):
@@ -13,10 +13,8 @@ class TodayQuerySchema(Schema):
 
 
 class TodayQuery:
-    def __init__(self, usual=True, raw=False, congrat=False):
-        self.usual = usual
-        self.raw = raw
-        self.congrat = congrat
+    def __init__(self, date=datetime.now().date()):
+        self.date = date
 
     @property
     def params(self):
