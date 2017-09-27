@@ -3,7 +3,7 @@ from random import choice
 import requests
 
 from html.parser import HTMLParser
-from today.cache_wrapper import remember
+from today.utils import remember
 
 BASE_URL = "http://kakoysegodnyaprazdnik.ru/baza"
 
