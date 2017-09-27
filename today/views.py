@@ -11,16 +11,24 @@ from today.utils import get_current_time
 
 logger = getLogger(__name__)
 logger.setLevel(INFO)
-local_handler = FileHandler("log")
-logger.addHandler(local_handler)
+logger.addHandler(FileHandler("log"))
+
+
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
 
 
 def log_request(request):
     time = get_current_time().strftime("%Y-%m-%d %H:%M:%S")
     path = request.path
-    host = request.get_host()
+    client_ip = get_client_ip(request)
     user_agent = str(request.environ.get("HTTP_USER_AGENT", None))
-    logger.info(" ".join([time, path, user_agent, host]))
+    logger.info(" ".join([time, path, user_agent, client_ip]))
 
 
 def get_today_celebrate(request):
