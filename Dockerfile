@@ -2,6 +2,9 @@ FROM ubuntu:16.04
 
 LABEL maintainer="werelaxe"
 
+ENV TZ=Asia/Yekaterinburg
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 RUN apt-get update && apt-get install python3 curl -y
 RUN curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
 RUN python3 get-pip.py
