@@ -13,7 +13,9 @@ class TodayQuerySchema(Schema):
 
 
 class TodayQuery:
-    def __init__(self, date=datetime.now().date()):
+    def __init__(self, date=None):
+        if date is None:
+            date = datetime.now().date()
         self.date = date
 
     @property
