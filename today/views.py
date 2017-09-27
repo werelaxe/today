@@ -47,5 +47,5 @@ def get_today_celebrate(request):
 @api_view(["GET"])
 def get_raw_today_celebrate(request):
     log_request(request)
-    date = TodayQuerySchema().load(request.GET).data.get('date')
+    date = TodayQuerySchema().load(request.GET).data.date
     return Response(get_today(date))
