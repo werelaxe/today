@@ -1,7 +1,7 @@
-from datetime import datetime
-
 from marshmallow import Schema, fields
 from marshmallow import post_load
+
+from today.utils import get_current_time
 
 
 class TodayQuerySchema(Schema):
@@ -15,7 +15,7 @@ class TodayQuerySchema(Schema):
 class TodayQuery:
     def __init__(self, date=None):
         if date is None:
-            date = datetime.now().date()
+            date = get_current_time().date()
         self.date = date
 
     @property
