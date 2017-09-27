@@ -12,7 +12,8 @@ def get_today_celebrate(request):
     date = TodayQuerySchema().load(request.GET).data.date
     return HttpResponse(main_template.render(
         context={
-            'today': get_today(date)
+            'today': get_today(date),
+            'current_date': date.strftime("%d.%m.%Y"),
         },
         request=request,
     ))
