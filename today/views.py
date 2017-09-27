@@ -7,18 +7,20 @@ from today.serialization import TodayQuerySchema
 from today.service import get_today
 from logging import getLogger, FileHandler, INFO, Formatter
 
+from today.utils import get_current_time
+
 logger = getLogger(__name__)
 logger.setLevel(INFO)
 local_handler = FileHandler("log")
-local_handler.setFormatter(Formatter("%(asctime)s  %(message)s"))
 logger.addHandler(local_handler)
 
 
 def log_request(request):
+    time = get_current_time().strftime("%Y-%m-%d %H:%M:%S")
     path = request.path
     host = request.get_host()
     user_agent = str(request.environ.get("HTTP_USER_AGENT", None))
-    logger.info(" ".join([path, user_agent, host]))
+    logger.info(" ".join([time, path, user_agent, host]))
 
 
 def get_today_celebrate(request):
