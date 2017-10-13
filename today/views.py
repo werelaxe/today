@@ -5,7 +5,7 @@ from rest_framework.response import Response
 
 from today.serialization import TodayQuerySchema
 from today.service import get_today
-from logging import getLogger, FileHandler, INFO, Formatter
+from logging import getLogger, FileHandler, INFO
 
 from today.utils import get_current_time
 

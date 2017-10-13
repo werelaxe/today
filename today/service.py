@@ -3,6 +3,8 @@ from random import choice
 import requests
 
 from html.parser import HTMLParser
+
+from today.models import Celebrate
 from today.utils import remember
 
 BASE_URL = "http://kakoysegodnyaprazdnik.ru/baza"
@@ -23,9 +25,14 @@ MONTH_LABELS = {
 }
 
 
-@remember
 def get_today(date):
-    return choice(get_celebrates(date)).lower()
+    celebrates = list(Celebrate.objects.filter(date=date))
+    if celebrates:
+        return celebrates[0].label
+    else:
+        new_label = choice(get_celebrates(date)).lower()
+        Celebrate.objects.create(date=date, label=new_label.encode())
+        return new_label
 
 
 class TodayParser(HTMLParser):
